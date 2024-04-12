@@ -1,17 +1,15 @@
 1. Plik dockerfile zawarty jest w tym repozytorium
 
 2. Polecenie budowy obrazu 
-    docker build --build-arg VERSION=2.4.0 -t readyapp:2.4.0 .
+    docker build --secret id=ssh,src=id_ed25519 --progress=plain -t lab6 .
 
-3. Polecenie uruchamiające serwer
-    a) polecenie uruchomienia kontenera
-        docker run -d -p 3000:8080 readyapp:2.4.0
-
-    b) polecenie uruchamiające serwer node zawarte w pliku Dockerfile
-        CMD [ "sh", "-c", "nginx & node /app/index.js"] 
-
-4. Polecenie potwierdzające działanie kontenera i poprawne funkcjonowanie aplikacji
-    a) polecenie "docker ps" wyświetla informacje "healthy"
-    b) nalezy wpisac w adres przegladarki http://localhost:3000
-
-5. Zrzut ekranu przegladarki internetowej zawarty jako oddzielny plik w tym repozytorium
+Niestety podczas budowania obrazu otrzymuję błąd:
+Dockerfile:13
+--------------------
+  11 |     # RUN ssh-add ~/.ssh/id_ed25519
+  12 |
+  13 | >>>  RUN git clone git@github.com:BartoszSkowyra22/pawcho6.git .
+  14 |
+  15 |     # Etap 1 - Budowanie obrazu opartego o scratch
+--------------------
+ERROR: failed to solve: process "/bin/sh -c git clone git@github.com:BartoszSkowyra22/pawcho6.git ." did not complete successfully: exit code: 128
